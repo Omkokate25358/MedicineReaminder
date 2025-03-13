@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.Add_Medicine_Activity">
+
+    <androidx.appcompat.widget.Toolbar
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/custom_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white"
+        android:elevation="@dimen/_4sdp"
+        android:padding="@dimen/_10sdp"
+
+        >
+
+        <!-- Back Button -->
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:src="@drawable/icon_back"
+            android:contentDescription="Back"
+            android:padding="@dimen/_4sdp" />
+
+        <!-- Title Text -->
+        <TextView
+            android:id="@+id/txt_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/amaranth"
+            android:text="Add Medicine"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_22sdp"
+            android:textStyle="bold"/>
+    </androidx.appcompat.widget.Toolbar>
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@id/custom_toolbar">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/txt_wlc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:fontFamily="@font/amaranth"
+        android:text="New Medicine"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_18sdp" />
+
+    <TextView
+        android:id="@+id/txt_note"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txt_wlc"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:fontFamily="@font/amaranth"
+        android:gravity="center"
+        android:text="Fill out the field and hit the Save Button to add\n it"
+        android:textColor="@color/grey"
+        android:textSize="@dimen/_14sdp"
+        android:textStyle="normal" />
+
+    <TextView
+        android:id="@+id/et_txt_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txt_note"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:fontFamily="@font/amaranth"
+        android:text="Name (eg.name1)"
+        android:textSize="@dimen/_18sdp" />
+
+    <EditText
+        android:id="@+id/input_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_txt_name"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:fontFamily="@font/amaranth"
+        android:hint="Name"
+        android:textColor="@color/black"
+
+        />
+
+    <TextView
+        android:id="@+id/et_txt_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/input_name"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:fontFamily="@font/amaranth"
+        android:text="Type"
+        android:textSize="@dimen/_18sdp" />
+
+    <Spinner
+        android:id="@+id/input_type"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_below="@id/et_txt_type"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:background="@drawable/spinner_bc"
+        android:padding="@dimen/_8sdp" />
+
+    <TextView
+        android:id="@+id/et_txt_dose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/input_type"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:fontFamily="@font/amaranth"
+        android:text="Dose (eg.200 mg)"
+        android:textSize="@dimen/_18sdp" />
+
+    <EditText
+        android:id="@+id/input_dose"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_txt_dose"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:fontFamily="@font/amaranth"
+        android:hint="Dose"
+        android:textColor="@color/black"
+
+        />
+
+
+    <TextView
+        android:id="@+id/et_txt_quantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/input_dose"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:fontFamily="@font/amaranth"
+        android:text="Quantity (eg.1-2)"
+        android:textSize="@dimen/_18sdp" />
+
+    <EditText
+        android:id="@+id/input_quantity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_txt_quantity"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:fontFamily="@font/amaranth"
+        android:hint="Quantity"
+        android:textColor="@color/black"
+        />
+
+    <TextView
+        android:id="@+id/et_txt_reaminder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/input_quantity"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:fontFamily="@font/amaranth"
+        android:text="Remainder Time"
+        android:textSize="@dimen/_18sdp" />
+
+    <ImageButton
+        android:id="@+id/set_time"
+        android:layout_width="@dimen/_45sdp"
+        android:layout_height="@dimen/_25sdp"
+        android:src="@drawable/_add"
+        android:layout_below="@id/et_txt_reaminder"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        />
+    <TextView
+        android:id="@+id/input_reaminder_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_txt_reaminder"
+        android:visibility="invisible"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:fontFamily="@font/amaranth"
+        android:text="Remainder Time"
+        android:textSize="@dimen/_18sdp" />
+
+    <ImageButton
+        android:id="@+id/edit_time"
+        android:layout_width="@dimen/_45sdp"
+        android:layout_height="@dimen/_25sdp"
+        android:src="@drawable/icon_edit"
+        android:layout_toRightOf="@id/et_txt_reaminder"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_18sdp"
+        android:visibility="invisible"
+
+        android:layout_below="@id/input_quantity"
+
+        />
+
+    <TextView
+        android:id="@+id/et_txt_reaminder_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/input_reaminder_result"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:fontFamily="@font/amaranth"
+        android:text="Remainder Days"
+        android:textSize="@dimen/_18sdp" />
+
+<LinearLayout
+    android:id="@+id/ly_sunday"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_below="@id/et_txt_reaminder_date"
+    >
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/input_day_sunday"
+        android:layout_below="@id/et_txt_reaminder_date"
+        android:layout_marginStart="@dimen/_20sdp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sunday"
+        android:layout_toRightOf="@id/input_day_sunday"
+        android:layout_below="@id/et_txt_reaminder_date"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:textSize="@dimen/_18sdp"
+        android:fontFamily="@font/amaranth"
+        />
+
+</LinearLayout>
+    <LinearLayout
+        android:id="@+id/ly_monday"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/ly_sunday"
+        >
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+                    android:id="@+id/input_day_monday"
+            android:layout_below="@id/et_txt_reaminder_date"
+            android:layout_marginStart="@dimen/_20sdp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Monday"
+            android:layout_toRightOf="@id/input_day_sunday"
+            android:layout_below="@id/et_txt_reaminder_date"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:textSize="@dimen/_18sdp"
+            android:fontFamily="@font/amaranth"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ly_tuesday"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/ly_monday"
+        >
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/input_day_tuesday"
+            android:layout_below="@id/et_txt_reaminder_date"
+            android:layout_marginStart="@dimen/_20sdp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tuesday"
+            android:layout_toRightOf="@id/input_day_sunday"
+            android:layout_below="@id/et_txt_reaminder_date"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:textSize="@dimen/_18sdp"
+            android:fontFamily="@font/amaranth"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ly_wednesday"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/ly_tuesday"
+        >
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/input_day_wednesday"
+            android:layout_below="@id/et_txt_reaminder_date"
+            android:layout_marginStart="@dimen/_20sdp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Wednesday"
+            android:layout_toRightOf="@id/input_day_sunday"
+            android:layout_below="@id/et_txt_reaminder_date"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:textSize="@dimen/_18sdp"
+            android:fontFamily="@font/amaranth"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ly_thursday"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/ly_wednesday"
+        >
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/input_day_thursday"
+            android:layout_below="@id/et_txt_reaminder_date"
+            android:layout_marginStart="@dimen/_20sdp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thursday"
+            android:layout_toRightOf="@id/input_day_sunday"
+            android:layout_below="@id/et_txt_reaminder_date"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:textSize="@dimen/_18sdp"
+            android:fontFamily="@font/amaranth"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ly_friday"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/ly_thursday"
+        >
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/input_day_friday"
+            android:layout_below="@id/et_txt_reaminder_date"
+            android:layout_marginStart="@dimen/_20sdp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Friday"
+            android:layout_toRightOf="@id/input_day_sunday"
+            android:layout_below="@id/et_txt_reaminder_date"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:textSize="@dimen/_18sdp"
+            android:fontFamily="@font/amaranth"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ly_saturday"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/ly_friday"
+        >
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/input_day_saturday"
+            android:layout_below="@id/et_txt_reaminder_date"
+            android:layout_marginStart="@dimen/_20sdp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Saturday"
+            android:layout_toRightOf="@id/input_day_sunday"
+            android:layout_below="@id/et_txt_reaminder_date"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:textSize="@dimen/_18sdp"
+            android:fontFamily="@font/amaranth"
+            />
+
+    </LinearLayout>
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_add_medicine"
+        android:layout_marginStart="@dimen/_40sdp"
+        android:layout_marginEnd="@dimen/_40sdp"
+android:backgroundTint="@color/btn_save"
+        android:layout_below="@id/ly_saturday"
+        android:layout_marginTop="@dimen/_24sdp"
+        android:text="Add Medicine"
+        android:fontFamily="@font/amaranth"
+        android:textSize="@dimen/_22sdp"
+        android:textAllCaps="false"
+        android:padding="@dimen/_6sdp"
+
+        />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_2sdp"
+        android:layout_below="@id/btn_add_medicine"
+        android:layout_marginTop="@dimen/_28sdp"
+        android:layout_marginBottom="@dimen/_6sdp"
+
+        />
+
+
+    </RelativeLayout>
+</ScrollView>
+
+</RelativeLayout>

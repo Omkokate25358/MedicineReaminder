@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="grey">#7E7A7A</color>
+    <color name="btn_save">#B0FFEC</color>
+    <color name="blue">#0840D0</color>
+    <color name="toolbar">#E0C7DB</color>
+
+</resources>

@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">MediCare</string>
+
+
+    <string-array name="type_options">
+        <item>Capsule</item>
+        <item>Drop</item>
+        <item>Table</item>
+        <item>Syrup</item>
+    </string-array>
+</resources>
