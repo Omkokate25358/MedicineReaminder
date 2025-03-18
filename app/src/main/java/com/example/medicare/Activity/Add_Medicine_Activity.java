@@ -110,7 +110,7 @@ public class Add_Medicine_Activity extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                 selectedItem = parent.getItemAtPosition(position).toString();
+                selectedItem = parent.getItemAtPosition(position).toString();
                 Toast.makeText(Add_Medicine_Activity.this, "Selected: " + selectedItem, Toast.LENGTH_SHORT).show();
             }
 
@@ -148,11 +148,7 @@ public class Add_Medicine_Activity extends AppCompatActivity {
         });
 
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+
     }
 
     private void  showTimePicker() {
@@ -170,7 +166,7 @@ public class Add_Medicine_Activity extends AppCompatActivity {
                         boolean isPM = hourOfDay >= 12;
                         int hour12Format = (hourOfDay == 0 || hourOfDay == 12) ? 12 : hourOfDay % 12;
                         String amPm = isPM ? "PM" : "AM";
-                         formattedTime = String.format("%02d:%02d %s", hour12Format, minute, amPm);
+                        formattedTime = String.format("%02d:%02d %s", hour12Format, minute, amPm);
 
                         // Display selected time
                         selectedTimeText.setText("Time: " + formattedTime);
@@ -189,14 +185,12 @@ public class Add_Medicine_Activity extends AppCompatActivity {
     private void saveSelectedDays() {
 
         ArrayList<String> selectedDays = new ArrayList<>();
-
-        if (chkSunday.isChecked()) selectedDays.add("Sunday");
-        if (chkMonday.isChecked()) selectedDays.add("Monday");
-        if (chkTuesday.isChecked()) selectedDays.add("Tuesday");
-        if (chkWednesday.isChecked()) selectedDays.add("Wednesday");
-        if (chkThursday.isChecked()) selectedDays.add("Thursday");
-        if (chkFriday.isChecked()) selectedDays.add("Friday");
-        if (chkSaturday.isChecked()) selectedDays.add("Saturday");
+        if (!chkMonday.isChecked() && !chkTuesday.isChecked() && !chkWednesday.isChecked() &&
+                !chkThursday.isChecked() && !chkFriday.isChecked() && !chkSaturday.isChecked() &&
+                !chkSunday.isChecked()) {
+            Toast.makeText(this, "Please select at least one weekday.", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
 
 
@@ -208,34 +202,61 @@ public class Add_Medicine_Activity extends AppCompatActivity {
         String time=formattedTime.trim();
 
         if (user != null) {
-            String userId = user.getUid();
-            // Reference to User's Medicine Collection
-            DocumentReference userRef = db.collection("Users").document(userId);
-            CollectionReference medicinesRef = userRef.collection("Medicines");
 
             // Medicine Data
             Map<String, Object> medicine = new HashMap<>();
-            medicine.put("selectedDays", selectedDays);
+//            medicine.put("selectedDays", selectedDays);
             medicine.put("Medicine Name", name);
             medicine.put("Medicine Dose", dose);
             medicine.put("Medicine quantity", quantity);
             medicine.put("Medicine type", type);
             medicine.put("Time", time);
 
+            // getting feild from firebase
+            String userId = user.getUid();
+//            // Reference to User's Medicine Collection
+//            DocumentReference userRef = db.collection("Users").document(userId);
+//            CollectionReference medicinesRef = userRef.collection("Medicines");
 
             // Add Medicine Data to Firestore
-            medicinesRef.add(medicine)
-                    .addOnSuccessListener(documentReference -> {
-                        Toast.makeText(this, "Medicine Added!", Toast.LENGTH_SHORT).show();
-                    })
-                    .addOnFailureListener(e -> {
-                        Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    });
+//            db.collection("Users").document(userId) // Replace 'userId' with the actual user ID
+//                    .collection("Medicines")
+//                    .document("Monday")  // Adding data specifically under "Monday"
+//                    .collection("Details")  // Optional, if you want detailed entries
+//                    .add(medicine)
+//                    .addOnSuccessListener(documentReference -> {
+//                        Toast.makeText(this, "Medicine added for Monday!", Toast.LENGTH_SHORT).show();
+//                    })
+//                    .addOnFailureListener(e -> {
+//                        Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+//                    });
 
-        }
 
+//            add data to monday
 
+            if(chkMonday.isChecked()) addDataToFirebase("Monday",medicine,userId);
+            if(chkTuesday.isChecked()) addDataToFirebase("Tuesday",medicine,userId);
+            if(chkWednesday.isChecked()) addDataToFirebase("Wednesday",medicine,userId);
+            if(chkThursday.isChecked()) addDataToFirebase("Thursday",medicine,userId);
+            if(chkFriday.isChecked()) addDataToFirebase("Friday",medicine,userId);
+            if(chkSaturday.isChecked()) addDataToFirebase("Saturday",medicine,userId);
+            if(chkSunday.isChecked()) addDataToFirebase("Sunday",medicine,userId);
 
+}
+    }
+
+    private void addDataToFirebase(String weekDay,Map<String,Object> medicineData,String userId){
+        db.collection("Users").document(userId) // Replace 'userId' with the actual user ID
+                .collection("Medicines")
+                .document(weekDay)  // Adding data specifically under "Monday"
+                .collection("Details")  // Optional, if you want detailed entries
+                .add(medicineData)
+                .addOnSuccessListener(documentReference -> {
+                    Toast.makeText(this, "Medicine added for Monday!", Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
     }
 
 }
