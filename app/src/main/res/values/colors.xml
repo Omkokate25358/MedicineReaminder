@@ -1,10 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="grey">#7E7A7A</color>
-    <color name="btn_save">#B0FFEC</color>
+
     <color name="blue">#0840D0</color>
     <color name="toolbar">#E0C7DB</color>
+
+    <color name="primary_color">#1976D2</color>
+    <color name="primary_dark">#0D47A1</color>
+    <color name="accent_color">#03A9F4</color>
+    <color name="secondary_color">#4CAF50</color>
+    <color name="background_light">#F5F9FF</color>
+    <color name="accent">#4EC0A5</color>
+    <color name="primary">#5A81FA</color>
+
+
+
+
+
+    <!-- Background and text colors -->
+    <color name="background_color">#F5F8FF</color>
+    <color name="text_dark">#263238</color>
+    <color name="text_medium">#546E7A</color>
+    <color name="text_light">#B0BEC5</color>
+    <color name="text_secondary">#546E7A</color>
+    <color name="divider_color">#E0E0E0</color>
+    <color name="color_danger">#F44336</color>
+    <color name="yellow">#DBCD5D</color>
+    <color name="text_primary">#212529</color>
+
+
+
+
+
+    <!-- Chip colors -->
+    <color name="chip_background_color">#E3F2FD</color>
+
+    <!-- Standard colors -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="grey">#757575</color>
+
+    <!-- Button save color -->
+    <color name="btn_save">#1976D2</color>
+
+    <color name="ripple_color">#33000000</color>
+
 
 </resources>

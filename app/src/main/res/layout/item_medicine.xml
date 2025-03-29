@@ -1,45 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="10dp"
-    android:background="@android:color/white"
-    android:elevation="4dp"
-    android:layout_margin="8dp">
+    android:layout_margin="@dimen/_8sdp"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="@dimen/_12sdp"
+    app:cardElevation="@dimen/_4sdp">
 
-    <TextView
-        android:id="@+id/tvName"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Medicine Name"
-        android:textSize="18sp"
-        android:textStyle="bold"/>
+        android:orientation="horizontal"
+        android:padding="@dimen/_4sdp">
 
-    <TextView
-        android:id="@+id/tvDose"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Dose: 500mg"/>
+        <!-- Medicine Icon -->
+        <ImageView
+            android:id="@+id/ivMedicineIcon"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/circle_background"
+            android:padding="@dimen/_8sdp"
+            android:src="@drawable/ic_medicine"
+            app:tint="@color/primary" />
 
-    <TextView
-        android:id="@+id/tvQuantity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Quantity: 10 Tablets"/>
+        <!-- Medicine Details -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tvTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Time: 08:00 AM"/>
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="@font/amaranth"
+                android:maxLines="1"
+                android:text="Medicine Name"
+                android:textColor="@color/text_primary"
+                android:textSize="@dimen/_16sdp"
+                android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/btnEdit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Edit"
-        android:backgroundTint="@android:color/holo_blue_light"
-        android:textColor="@android:color/white"
-        android:layout_marginTop="5dp"/>
-</LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvDose"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/_4sdp"
+                    android:fontFamily="@font/amaranth"
+                    android:text="Dose"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="@dimen/_12sdp"
+                    app:drawableTint="@color/accent" />
+
+                <TextView
+                    android:id="@+id/tvQuantity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:drawablePadding="@dimen/_4sdp"
+                    android:fontFamily="@font/amaranth"
+                    android:text="Quantity:-"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="@dimen/_12sdp"
+                    app:drawableTint="@color/accent" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:drawableStart="@drawable/ic_clock"
+                android:drawablePadding="@dimen/_2sdp"
+                android:fontFamily="@font/amaranth"
+                android:text="Time"
+                android:textColor="@color/primary"
+                android:textSize="@dimen/_14sdp"
+                android:textStyle="bold"
+                app:drawableTint="@color/primary" />
+        </LinearLayout>
+
+        <!-- Action Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:backgroundTint="@color/primary"
+            android:fontFamily="@font/amaranth"
+            android:minWidth="@dimen/_64sdp"
+            android:paddingVertical="@dimen/_8sdp"
+            android:text="edit"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            app:cornerRadius="@dimen/_20sdp"
+            app:icon="@drawable/ic_edit"
+            app:iconGravity="textStart"
+            app:iconPadding="@dimen/_4sdp"
+            app:iconTint="@color/white" />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

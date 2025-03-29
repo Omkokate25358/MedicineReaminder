@@ -5,11 +5,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Spinner;
+
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -41,7 +42,7 @@ public class Add_Medicine_Activity extends AppCompatActivity {
     private CheckBox chkSunday, chkMonday, chkTuesday, chkWednesday, chkThursday, chkFriday, chkSaturday;
 
 
-    private ImageButton timePickerButton, editTimeButton;
+    private Button timePickerButton, editTimeButton;
 
     private Button btn_add;
 
@@ -56,6 +57,11 @@ public class Add_Medicine_Activity extends AppCompatActivity {
     String formattedTime;
 
     FirebaseFirestore db;
+
+
+    // for autocomplete the text
+    private AutoCompleteTextView medicineTypeInput;
+
 
 
 
@@ -81,10 +87,10 @@ public class Add_Medicine_Activity extends AppCompatActivity {
         }
 
         //data member
-        Spinner spinner = findViewById(R.id.input_type);
+
         timePickerButton = findViewById(R.id.set_time);
         selectedTimeText = findViewById(R.id.input_reaminder_result);
-        editTimeButton = findViewById(R.id.edit_time);
+//        editTimeButton = findViewById(R.id.edit_time);
 
         //data member week days
         chkSunday = findViewById(R.id.input_day_sunday);
@@ -101,25 +107,29 @@ public class Add_Medicine_Activity extends AppCompatActivity {
         medidose=findViewById(R.id.input_dose);
         mquantity=findViewById(R.id.input_quantity);
 
+        medicineTypeInput = findViewById(R.id.input_type);
 
 
-        String[] type_options = getResources().getStringArray(R.array.type_options);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, type_options);
-        spinner.setAdapter(adapter);
 
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                selectedItem = parent.getItemAtPosition(position).toString();
-                Toast.makeText(Add_Medicine_Activity.this, "Selected: " + selectedItem, Toast.LENGTH_SHORT).show();
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // Do nothing
-            }
-        });
 
+
+
+        // auto complete the words
+        // Get medicine types from database or predefined list
+        String[] medicineTypes = getMedicineTypes();
+
+        // Create adapter for autocomplete
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_dropdown_item_1line,
+                medicineTypes
+        );
+        // Set the adapter to the AutoCompleteTextView
+        medicineTypeInput.setAdapter(adapter);
+
+        // Optional: Set threshold for showing suggestions (after typing X characters)
+        medicineTypeInput.setThreshold(1);
 
         // Time picker
         timePickerButton.setOnClickListener(new View.OnClickListener() {
@@ -130,12 +140,12 @@ public class Add_Medicine_Activity extends AppCompatActivity {
         });
 
         // Edit time when clicking the edit button
-        editTimeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showTimePicker();
-            }
-        });
+//        editTimeButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                showTimePicker();
+//            }
+//        });
 
         // add button
         btn_add.setOnClickListener(new View.OnClickListener() {
@@ -174,7 +184,7 @@ public class Add_Medicine_Activity extends AppCompatActivity {
 
                         // Hide clock button and show edit button
                         timePickerButton.setVisibility(View.GONE);
-                        editTimeButton.setVisibility(View.VISIBLE);
+//                        editTimeButton.setVisibility(View.VISIBLE);
                     }
                 }, hour, minute, false); // 'false' for 12-hour format
 
@@ -198,7 +208,7 @@ public class Add_Medicine_Activity extends AppCompatActivity {
         String name=mediName.getText().toString().trim();
         String dose=medidose.getText().toString().trim();
         String quantity=mquantity.getText().toString().trim();
-        String type=selectedItem.trim();
+        String type=medicineTypeInput.getText().toString();
         String time=formattedTime.trim();
 
         if (user != null) {
@@ -214,22 +224,6 @@ public class Add_Medicine_Activity extends AppCompatActivity {
 
             // getting feild from firebase
             String userId = user.getUid();
-//            // Reference to User's Medicine Collection
-//            DocumentReference userRef = db.collection("Users").document(userId);
-//            CollectionReference medicinesRef = userRef.collection("Medicines");
-
-            // Add Medicine Data to Firestore
-//            db.collection("Users").document(userId) // Replace 'userId' with the actual user ID
-//                    .collection("Medicines")
-//                    .document("Monday")  // Adding data specifically under "Monday"
-//                    .collection("Details")  // Optional, if you want detailed entries
-//                    .add(medicine)
-//                    .addOnSuccessListener(documentReference -> {
-//                        Toast.makeText(this, "Medicine added for Monday!", Toast.LENGTH_SHORT).show();
-//                    })
-//                    .addOnFailureListener(e -> {
-//                        Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-//                    });
 
 
 //            add data to monday
@@ -257,6 +251,15 @@ public class Add_Medicine_Activity extends AppCompatActivity {
                 .addOnFailureListener(e -> {
                     Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
+    }
+
+    private String[] getMedicineTypes() {
+        // You can either get this from a database or use a predefined list
+        return new String[] {
+                "Tablet", "Capsule", "Syrup", "Injection", "Drops",
+                "Inhaler", "Cream", "Ointment", "Spray", "Patch",
+                "Suppository", "Suspension", "Solution", "Powder", "Lozenge"
+        };
     }
 
 }

@@ -1,6 +1,9 @@
 package com.example.medicare.Activity;
 
+import android.app.NotificationManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.medicare.Activity.Medicine;
 import com.example.medicare.R;
 
 import java.util.List;
@@ -63,6 +67,19 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.Medici
             tvQuantity = itemView.findViewById(R.id.tvQuantity);
             tvTime = itemView.findViewById(R.id.tvTime);
             btnEdit = itemView.findViewById(R.id.btnEdit);
+        }
+    }
+
+    public static class AlarmStopReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Stop the alarm
+
+
+            // Cancel the notification
+            NotificationManager notificationManager =
+                    (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.cancelAll();
         }
     }
 }

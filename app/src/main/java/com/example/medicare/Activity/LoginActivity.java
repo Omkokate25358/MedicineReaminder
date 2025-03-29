@@ -56,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
 
         // check for already login
         if (sharedPreferences.getBoolean("isLoggedIn", false)) {
-            startActivity(new Intent(LoginActivity.this, Intake_Activity.class));
+            startActivity(new Intent(LoginActivity.this, Home_Activity.class));
             finish();
         }
 
@@ -93,7 +93,7 @@ public class LoginActivity extends AppCompatActivity {
                     saveLoginSession();
                     if (task.isSuccessful()) {
                         Toast.makeText(this, "Login Successful!", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(LoginActivity.this, Intake_Activity.class));
+                        startActivity(new Intent(LoginActivity.this, Home_Activity.class));
                         finish();
                     } else {
                         Toast.makeText(this, "Login Failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();

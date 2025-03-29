@@ -1,5 +1,11 @@
 <resources>
+
     <string name="app_name">MediCare</string>
+    <string name="back_navigation">Back</string>
+    <string name="previous_week">Previous Week</string>
+    <string name="next_week">Next Week</string>
+    <string name="today_medications">Today\'s Medications</string>
+    <string name="add_medication">Add Medication</string>
 
 
     <string-array name="type_options">
@@ -8,4 +14,5 @@
         <item>Table</item>
         <item>Syrup</item>
     </string-array>
+
 </resources>

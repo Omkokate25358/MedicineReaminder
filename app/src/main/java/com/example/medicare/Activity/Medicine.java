@@ -1,21 +1,79 @@
 package com.example.medicare.Activity;
 
 public class Medicine {
-    private String id, name, dose, quantity, time;
+    private String id;
+    private String medicineName;
+    private String medicineDose;
+    private String medicineQuantity;
+    private String medicineTime;
+    private String medicineDay;
 
-    public Medicine() { }  // Required empty constructor for Firestore
-
-    public Medicine(String id, String name, String dose, String quantity, String time) {
+    // Constructor
+    public Medicine(String id, String medicineName, String medicineDose,
+                    String medicineQuantity, String medicineTime) {
         this.id = id;
-        this.name = name;
-        this.dose = dose;
-        this.quantity = quantity;
-        this.time = time;
+        this.medicineName = medicineName;
+        this.medicineDose = medicineDose;
+        this.medicineQuantity = medicineQuantity;
+        this.medicineTime = medicineTime;
     }
 
-    public String getId() { return id; }
-    public String getName() { return name; }
-    public String getDose() { return dose; }
-    public String getQuantity() { return quantity; }
-    public String getTime() { return time; }
+
+
+//    public boolean isAlarmEnabled() {
+//        return alarmEnabled;
+//    }
+//
+//    public void setAlarmEnabled(boolean alarmEnabled) {
+//        this.alarmEnabled = alarmEnabled;
+//    }
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return medicineName;
+    }
+
+    public void setMedicineName(String medicineName) {
+        this.medicineName = medicineName;
+    }
+
+    public String getDose() {
+        return medicineDose;
+    }
+
+    public void setMedicineDose(String medicineDose) {
+        this.medicineDose = medicineDose;
+    }
+
+    public String getQuantity() {
+        return medicineQuantity;
+    }
+
+    public void setMedicineQuantity(String medicineQuantity) {
+        this.medicineQuantity = medicineQuantity;
+    }
+
+    public String getTime() {
+        return medicineTime;
+    }
+
+    public void setMedicineTime(String medicineTime) {
+        this.medicineTime = medicineTime;
+    }
+
+    public String getMedicineDay() {
+        return medicineDay;
+    }
+
+    public void setMedicineDay(String medicineDay) {
+        this.medicineDay = medicineDay;
+    }
+
+
 }

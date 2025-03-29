@@ -1,16 +1,25 @@
-package com.example.medicare.Activity;
+package com.example.medicare.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.medicare.Activity.Add_Medicine_Activity;
+import com.example.medicare.Activity.CalendarAdapter;
+import com.example.medicare.Activity.Medicine;
+import com.example.medicare.Activity.MedicineAdapter;
+import com.example.medicare.Activity.RoundedThickGaugeView;
 import com.example.medicare.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,7 +34,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
-public class Intake_Activity extends AppCompatActivity {
+public class Intake_Fragment extends Fragment {
     private RecyclerView CrecyclerView, mrecyclerView;
     private CalendarAdapter calendarAdapter;
     private ImageButton btnPreviousWeek, btnNextWeek;
@@ -39,45 +48,60 @@ public class Intake_Activity extends AppCompatActivity {
     FirebaseAuth auth;
     private FirebaseFirestore db;
 
+    int totalMedicine;
+
+
     // to add a medicine
     FloatingActionButton add;
+
+    RoundedThickGaugeView gaugeView;
 
     public interface OnDateSelectedListener {
         void onDateSelected(Calendar date, int position);
     }
 
+    public Intake_Fragment() {
+        // Required empty public constructor
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_intake);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_intake, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         // Initialize Firebase
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
         // Initialize UI components
-        CrecyclerView = findViewById(R.id.recyclerViewCalendar);
-        mrecyclerView = findViewById(R.id.recyclerView);
-        btnPreviousWeek = findViewById(R.id.previous);
-        btnNextWeek = findViewById(R.id.next);
-        add = findViewById(R.id.add_data);
+        CrecyclerView = view.findViewById(R.id.recyclerViewCalendar);
+        mrecyclerView = view.findViewById(R.id.recyclerView);
+        btnPreviousWeek = view.findViewById(R.id.previous);
+        btnNextWeek = view.findViewById(R.id.next);
+        add = view.findViewById(R.id.add_data);
+        gaugeView=view.findViewById(R.id.roundedThickGaugeView);
 
         // Set up calendar RecyclerView
         CrecyclerView.setLayoutManager(new LinearLayoutManager(
-                this,
+                getContext(),
                 LinearLayoutManager.HORIZONTAL,
                 false
         ));
 
         // Set up medicine RecyclerView
-        mrecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mrecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         // Initialize medicine list and adapter
         medicineList = new ArrayList<>();
-        adapter = new MedicineAdapter(this, medicineList, medicine -> {
+        adapter = new MedicineAdapter(getContext(), medicineList, medicine -> {
             // Handle Edit Button Click
-            Intent intent = new Intent(Intake_Activity.this, Add_Medicine_Activity.class);
+            Intent intent = new Intent(getActivity(), Add_Medicine_Activity.class);
             intent.putExtra("medicineId", medicine.getId());
             startActivity(intent);
         });
@@ -90,16 +114,21 @@ public class Intake_Activity extends AppCompatActivity {
         currentWeekStart.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
 
         // Initialize calendar adapter
-        calendarAdapter = new CalendarAdapter(generateWeekDates(), this, (date, position) -> {
+        calendarAdapter = new CalendarAdapter(generateWeekDates(), getContext(), (date, position) -> {
             // Get the day of week as a string (e.g., "Monday")
             String[] daysOfWeek = new String[]{"", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
             selectedDay = daysOfWeek[date.get(Calendar.DAY_OF_WEEK)];
 
             // Show which day is selected (optional)
-            Toast.makeText(Intake_Activity.this, "Selected: " + selectedDay, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Selected: " + selectedDay, Toast.LENGTH_SHORT).show();
+
 
             // Fetch medicine data for the selected day
             fetchMedicineData(selectedDay);
+
+            // here i am changing a guage view values
+            totalMedicine=countRecyclerViewItems();
+            gaugeView.updateGauge(1,totalMedicine,selectedDay,"Today Medicine");
         });
 
         // Set calendar adapter
@@ -110,7 +139,7 @@ public class Intake_Activity extends AppCompatActivity {
 
         // Add medicine button click listener
         add.setOnClickListener(v -> {
-            Intent i1 = new Intent(Intake_Activity.this, Add_Medicine_Activity.class);
+            Intent i1 = new Intent(getActivity(), Add_Medicine_Activity.class);
             startActivity(i1);
         });
 
@@ -157,21 +186,18 @@ public class Intake_Activity extends AppCompatActivity {
         });
     }
 
+
     private void fetchMedicineData(String selectedDay) {
         Log.d("MedicareApp", "Fetching medicine data for: " + selectedDay);
 
         FirebaseUser user = auth.getCurrentUser();
         if (user == null) {
-            Toast.makeText(this, "User not logged in!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "User not logged in!", Toast.LENGTH_SHORT).show();
             return;
         }
 
         String userId = user.getUid();
         Log.d("MedicareApp", "User ID: " + userId);
-
-        // Add logging for path
-        String path = "Users/" + userId + "/Medicines/" + selectedDay + "/Details";
-        Log.d("MedicareApp", "Firestore path: " + path);
 
         DocumentReference userRef = db.collection("Users").document(userId);
         CollectionReference detailsRef = userRef
@@ -186,20 +212,14 @@ public class Intake_Activity extends AppCompatActivity {
 
                 if (task.getResult().isEmpty()) {
                     Log.d("MedicareApp", "No medicines found for " + selectedDay);
-                    Toast.makeText(Intake_Activity.this, "No medicines found for " + selectedDay, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "No medicines found for " + selectedDay, Toast.LENGTH_SHORT).show();
                     adapter.notifyDataSetChanged();
+                    updateGaugeView(0);
                     return;
                 }
 
                 for (QueryDocumentSnapshot document : task.getResult()) {
-                    // Add document ID logging
-                    Log.d("MedicareApp", "Processing document: " + document.getId());
-
-                    // Access medicine data inside the auto-generated document
                     Map<String, Object> medicineData = document.getData();
-
-                    // Log the full data
-                    Log.d("MedicareApp", "Document data: " + medicineData.toString());
 
                     // Extract data safely
                     String medicineName = medicineData.get("Medicine Name") != null ? medicineData.get("Medicine Name").toString() : "Unknown";
@@ -221,19 +241,39 @@ public class Intake_Activity extends AppCompatActivity {
                 Log.d("MedicareApp", "Loaded " + medicineList.size() + " medicines");
                 adapter.notifyDataSetChanged();
 
+                // Update gauge view after data is loaded
+                updateGaugeView(medicineList.size());
+
             } else {
                 Log.e("MedicareApp", "Error getting documents: ", task.getException());
-                Toast.makeText(Intake_Activity.this, "Error loading medicines: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Error loading medicines: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                updateGaugeView(0);
             }
         });
     }
 
+
+    private void updateGaugeView(int totalMedicines) {
+        if (gaugeView != null) {
+            gaugeView.updateGauge(1, totalMedicines, selectedDay, "Today's Medicine");
+        }
+    }
+
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
-        // Refresh data when returning to this activity
+        // Refresh data when returning to this fragment
         if (selectedDay != null) {
             fetchMedicineData(selectedDay);
         }
+    }
+
+    private int countRecyclerViewItems() {
+        if (mrecyclerView != null && mrecyclerView.getAdapter() != null) {
+            int total=mrecyclerView.getAdapter().getItemCount();
+            Toast.makeText(getContext(), "Count "+total, Toast.LENGTH_SHORT).show();
+            return total;
+        }
+        return 0;
     }
 }

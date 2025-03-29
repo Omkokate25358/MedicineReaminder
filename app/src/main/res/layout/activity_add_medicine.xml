@@ -5,451 +5,465 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_color"
     tools:context=".Activity.Add_Medicine_Activity">
 
     <androidx.appcompat.widget.Toolbar
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/custom_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/white"
+        android:background="@color/primary_color"
         android:elevation="@dimen/_4sdp"
-        android:padding="@dimen/_10sdp"
+        app:contentInsetStart="0dp">
 
-        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical">
 
-        <!-- Back Button -->
-        <ImageButton
-            android:id="@+id/btn_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:src="@drawable/icon_back"
-            android:contentDescription="Back"
-            android:padding="@dimen/_4sdp" />
+            <!-- Back Button -->
+            <ImageButton
+                android:id="@+id/btn_back"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_centerVertical="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Back"
+                android:src="@drawable/icon_back"
+                app:tint="@color/white" />
 
-        <!-- Title Text -->
-        <TextView
-            android:id="@+id/txt_add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:fontFamily="@font/amaranth"
-            android:text="Add Medicine"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_22sdp"
-            android:textStyle="bold"/>
+            <!-- Title Text -->
+            <TextView
+                android:id="@+id/txt_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:fontFamily="@font/montserrat_semibold"
+                android:text="Add Medicine"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_20sdp" />
+        </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
 
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_below="@id/custom_toolbar">
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    <TextView
-        android:id="@+id/txt_wlc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:fontFamily="@font/amaranth"
-        android:text="New Medicine"
-        android:textColor="@color/black"
-        android:textSize="@dimen/_18sdp" />
+        android:layout_height="match_parent"
+        android:layout_below="@id/custom_toolbar"
+        android:fillViewport="true">
 
-    <TextView
-        android:id="@+id/txt_note"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/txt_wlc"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:fontFamily="@font/amaranth"
-        android:gravity="center"
-        android:text="Fill out the field and hit the Save Button to add\n it"
-        android:textColor="@color/grey"
-        android:textSize="@dimen/_14sdp"
-        android:textStyle="normal" />
-
-    <TextView
-        android:id="@+id/et_txt_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/txt_note"
-        android:layout_marginStart="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_16sdp"
-        android:fontFamily="@font/amaranth"
-        android:text="Name (eg.name1)"
-        android:textSize="@dimen/_18sdp" />
-
-    <EditText
-        android:id="@+id/input_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/et_txt_name"
-        android:layout_marginStart="@dimen/_20sdp"
-        android:layout_marginEnd="@dimen/_20sdp"
-        android:fontFamily="@font/amaranth"
-        android:hint="Name"
-        android:textColor="@color/black"
-
-        />
-
-    <TextView
-        android:id="@+id/et_txt_type"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/input_name"
-        android:layout_marginStart="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_16sdp"
-        android:layout_marginEnd="@dimen/_20sdp"
-        android:fontFamily="@font/amaranth"
-        android:text="Type"
-        android:textSize="@dimen/_18sdp" />
-
-    <Spinner
-        android:id="@+id/input_type"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_40sdp"
-        android:layout_below="@id/et_txt_type"
-        android:layout_marginStart="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_4sdp"
-        android:layout_marginEnd="@dimen/_20sdp"
-        android:background="@drawable/spinner_bc"
-        android:padding="@dimen/_8sdp" />
-
-    <TextView
-        android:id="@+id/et_txt_dose"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/input_type"
-        android:layout_marginStart="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_16sdp"
-        android:fontFamily="@font/amaranth"
-        android:text="Dose (eg.200 mg)"
-        android:textSize="@dimen/_18sdp" />
-
-    <EditText
-        android:id="@+id/input_dose"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/et_txt_dose"
-        android:layout_marginStart="@dimen/_20sdp"
-        android:layout_marginEnd="@dimen/_20sdp"
-        android:fontFamily="@font/amaranth"
-        android:hint="Dose"
-        android:textColor="@color/black"
-
-        />
-
-
-    <TextView
-        android:id="@+id/et_txt_quantity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/input_dose"
-        android:layout_marginStart="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_16sdp"
-        android:fontFamily="@font/amaranth"
-        android:text="Quantity (eg.1-2)"
-        android:textSize="@dimen/_18sdp" />
-
-    <EditText
-        android:id="@+id/input_quantity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/et_txt_quantity"
-        android:layout_marginStart="@dimen/_20sdp"
-        android:layout_marginEnd="@dimen/_20sdp"
-        android:fontFamily="@font/amaranth"
-        android:hint="Quantity"
-        android:textColor="@color/black"
-        />
-
-    <TextView
-        android:id="@+id/et_txt_reaminder"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/input_quantity"
-        android:layout_marginStart="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_16sdp"
-        android:fontFamily="@font/amaranth"
-        android:text="Remainder Time"
-        android:textSize="@dimen/_18sdp" />
-
-    <ImageButton
-        android:id="@+id/set_time"
-        android:layout_width="@dimen/_45sdp"
-        android:layout_height="@dimen/_25sdp"
-        android:src="@drawable/_add"
-        android:layout_below="@id/et_txt_reaminder"
-        android:layout_marginStart="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_10sdp"
-        />
-    <TextView
-        android:id="@+id/input_reaminder_result"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/et_txt_reaminder"
-        android:visibility="invisible"
-        android:layout_marginStart="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:fontFamily="@font/amaranth"
-        android:text="Remainder Time"
-        android:textSize="@dimen/_18sdp" />
-
-    <ImageButton
-        android:id="@+id/edit_time"
-        android:layout_width="@dimen/_45sdp"
-        android:layout_height="@dimen/_25sdp"
-        android:src="@drawable/icon_edit"
-        android:layout_toRightOf="@id/et_txt_reaminder"
-        android:layout_marginStart="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_18sdp"
-        android:visibility="invisible"
-
-        android:layout_below="@id/input_quantity"
-
-        />
-
-    <TextView
-        android:id="@+id/et_txt_reaminder_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/input_reaminder_result"
-        android:layout_marginStart="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_16sdp"
-        android:fontFamily="@font/amaranth"
-        android:text="Remainder Days"
-        android:textSize="@dimen/_18sdp" />
-
-<LinearLayout
-    android:id="@+id/ly_sunday"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:layout_below="@id/et_txt_reaminder_date"
-    >
-    <com.google.android.material.checkbox.MaterialCheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/input_day_sunday"
-        android:layout_below="@id/et_txt_reaminder_date"
-        android:layout_marginStart="@dimen/_20sdp"
-        />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sunday"
-        android:layout_toRightOf="@id/input_day_sunday"
-        android:layout_below="@id/et_txt_reaminder_date"
-        android:layout_marginTop="@dimen/_2sdp"
-        android:textSize="@dimen/_18sdp"
-        android:fontFamily="@font/amaranth"
-        />
-
-</LinearLayout>
-    <LinearLayout
-        android:id="@+id/ly_monday"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@id/ly_sunday"
-        >
-        <com.google.android.material.checkbox.MaterialCheckBox
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-                    android:id="@+id/input_day_monday"
-            android:layout_below="@id/et_txt_reaminder_date"
-            android:layout_marginStart="@dimen/_20sdp"
-            />
+            android:padding="@dimen/_16sdp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Monday"
-            android:layout_toRightOf="@id/input_day_sunday"
-            android:layout_below="@id/et_txt_reaminder_date"
-            android:layout_marginTop="@dimen/_2sdp"
-            android:textSize="@dimen/_18sdp"
-            android:fontFamily="@font/amaranth"
-            />
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_16sdp"
+                app:cardBackgroundColor="@color/accent_color"
+                app:cardCornerRadius="@dimen/_12sdp"
+                app:cardElevation="@dimen/_4sdp">
 
-    </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_16sdp">
 
-    <LinearLayout
-        android:id="@+id/ly_tuesday"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@id/ly_monday"
-        >
-        <com.google.android.material.checkbox.MaterialCheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/input_day_tuesday"
-            android:layout_below="@id/et_txt_reaminder_date"
-            android:layout_marginStart="@dimen/_20sdp"
-            />
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:layout_width="@dimen/_50sdp"
+                        android:layout_height="@dimen/_50sdp"
+                        android:src="@drawable/ic_medicine"
+                        app:tint="@color/white" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tuesday"
-            android:layout_toRightOf="@id/input_day_sunday"
-            android:layout_below="@id/et_txt_reaminder_date"
-            android:layout_marginTop="@dimen/_2sdp"
-            android:textSize="@dimen/_18sdp"
-            android:fontFamily="@font/amaranth"
-            />
+                    <TextView
+                        android:id="@+id/txt_wlc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:fontFamily="@font/montserrat_bold"
+                        android:text="New Medicine"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_20sdp" />
 
-    </LinearLayout>
+                    <TextView
+                        android:id="@+id/txt_note"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:fontFamily="@font/montserrat"
+                        android:gravity="center"
+                        android:text="Fill out the fields below and save to add a new medication to your schedule"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_12sdp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
-    <LinearLayout
-        android:id="@+id/ly_wednesday"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@id/ly_tuesday"
-        >
-        <com.google.android.material.checkbox.MaterialCheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/input_day_wednesday"
-            android:layout_below="@id/et_txt_reaminder_date"
-            android:layout_marginStart="@dimen/_20sdp"
-            />
+            <!-- Medication Information Card -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_medicine_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/card_header"
+                android:layout_marginBottom="@dimen/_16sdp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/_12sdp"
+                app:cardElevation="@dimen/_2sdp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Wednesday"
-            android:layout_toRightOf="@id/input_day_sunday"
-            android:layout_below="@id/et_txt_reaminder_date"
-            android:layout_marginTop="@dimen/_2sdp"
-            android:textSize="@dimen/_18sdp"
-            android:fontFamily="@font/amaranth"
-            />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_16sdp">
 
-    </LinearLayout>
+                    <!-- Section Title -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat_semibold"
+                        android:text="Medication Details"
+                        android:textColor="@color/primary_color"
+                        android:textSize="@dimen/_16sdp" />
 
-    <LinearLayout
-        android:id="@+id/ly_thursday"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@id/ly_wednesday"
-        >
-        <com.google.android.material.checkbox.MaterialCheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/input_day_thursday"
-            android:layout_below="@id/et_txt_reaminder_date"
-            android:layout_marginStart="@dimen/_20sdp"
-            />
+                    <View
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="@dimen/_2sdp"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:layout_marginBottom="@dimen/_12sdp"
+                        android:background="@color/accent_color" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Thursday"
-            android:layout_toRightOf="@id/input_day_sunday"
-            android:layout_below="@id/et_txt_reaminder_date"
-            android:layout_marginTop="@dimen/_2sdp"
-            android:textSize="@dimen/_18sdp"
-            android:fontFamily="@font/amaranth"
-            />
+                    <!-- Name Field -->
+                    <TextView
+                        android:id="@+id/et_txt_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:text="Medication Name"
+                        android:textColor="@color/text_dark"
+                        android:textSize="@dimen/_14sdp" />
 
-    </LinearLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:layout_marginBottom="@dimen/_12sdp"
+                        android:hint="Enter medication name"
+                        app:boxStrokeColor="@color/primary_color"
+                        app:hintTextColor="@color/accent_color">
 
-    <LinearLayout
-        android:id="@+id/ly_friday"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@id/ly_thursday"
-        >
-        <com.google.android.material.checkbox.MaterialCheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/input_day_friday"
-            android:layout_below="@id/et_txt_reaminder_date"
-            android:layout_marginStart="@dimen/_20sdp"
-            />
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/input_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/montserrat"
+                            android:inputType="text"
+                            android:textSize="@dimen/_14sdp" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Friday"
-            android:layout_toRightOf="@id/input_day_sunday"
-            android:layout_below="@id/et_txt_reaminder_date"
-            android:layout_marginTop="@dimen/_2sdp"
-            android:textSize="@dimen/_18sdp"
-            android:fontFamily="@font/amaranth"
-            />
+                    <!-- Type Field -->
+                    <TextView
+                        android:id="@+id/et_txt_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:text="Medication Type"
+                        android:textColor="@color/text_dark"
+                        android:textSize="@dimen/_14sdp" />
 
-    </LinearLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:layout_marginBottom="@dimen/_12sdp"
+                        android:hint="Select medication type"
+                        app:boxStrokeColor="@color/primary_color"
+                        app:hintTextColor="@color/accent_color">
 
-    <LinearLayout
-        android:id="@+id/ly_saturday"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@id/ly_friday"
-        >
-        <com.google.android.material.checkbox.MaterialCheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/input_day_saturday"
-            android:layout_below="@id/et_txt_reaminder_date"
-            android:layout_marginStart="@dimen/_20sdp"
-            />
+                        <AutoCompleteTextView
+                            android:id="@+id/input_type"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/montserrat"
+                            android:inputType="none"
+                            android:textSize="@dimen/_14sdp" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Saturday"
-            android:layout_toRightOf="@id/input_day_sunday"
-            android:layout_below="@id/et_txt_reaminder_date"
-            android:layout_marginTop="@dimen/_2sdp"
-            android:textSize="@dimen/_18sdp"
-            android:fontFamily="@font/amaranth"
-            />
+                    <!-- Dose Field -->
+                    <TextView
+                        android:id="@+id/et_txt_dose"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:text="Dosage (eg. 200 mg)"
+                        android:textColor="@color/text_dark"
+                        android:textSize="@dimen/_14sdp" />
 
-    </LinearLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:layout_marginBottom="@dimen/_12sdp"
+                        android:hint="Enter dosage"
+                        app:boxStrokeColor="@color/primary_color"
+                        app:hintTextColor="@color/accent_color">
 
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/input_dose"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/montserrat"
+                            android:inputType="text"
+                            android:textSize="@dimen/_14sdp" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_add_medicine"
-        android:layout_marginStart="@dimen/_40sdp"
-        android:layout_marginEnd="@dimen/_40sdp"
-android:backgroundTint="@color/btn_save"
-        android:layout_below="@id/ly_saturday"
-        android:layout_marginTop="@dimen/_24sdp"
-        android:text="Add Medicine"
-        android:fontFamily="@font/amaranth"
-        android:textSize="@dimen/_22sdp"
-        android:textAllCaps="false"
-        android:padding="@dimen/_6sdp"
+                    <!-- Quantity Field -->
+                    <TextView
+                        android:id="@+id/et_txt_quantity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:text="Quantity (eg. 1-2 pills)"
+                        android:textColor="@color/text_dark"
+                        android:textSize="@dimen/_14sdp" />
 
-        />
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:layout_marginBottom="@dimen/_12sdp"
+                        android:hint="Enter quantity"
+                        app:boxStrokeColor="@color/primary_color"
+                        app:hintTextColor="@color/accent_color">
 
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/input_quantity"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/montserrat"
+                            android:inputType="text"
+                            android:textSize="@dimen/_14sdp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_2sdp"
-        android:layout_below="@id/btn_add_medicine"
-        android:layout_marginTop="@dimen/_28sdp"
-        android:layout_marginBottom="@dimen/_6sdp"
+            <!-- Reminder Card -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_reminder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/card_medicine_info"
+                android:layout_marginBottom="@dimen/_16sdp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/_12sdp"
+                app:cardElevation="@dimen/_2sdp">
 
-        />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_16sdp">
 
+                    <!-- Section Title -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat_semibold"
+                        android:text="Reminder Schedule"
+                        android:textColor="@color/primary_color"
+                        android:textSize="@dimen/_16sdp" />
 
-    </RelativeLayout>
-</ScrollView>
+                    <View
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="@dimen/_2sdp"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:layout_marginBottom="@dimen/_12sdp"
+                        android:background="@color/accent_color" />
 
+                    <!-- Reminder Time -->
+                    <TextView
+                        android:id="@+id/et_txt_reaminder"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:text="Reminder Time"
+                        android:textColor="@color/text_dark"
+                        android:textSize="@dimen/_14sdp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:layout_marginBottom="@dimen/_12sdp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/set_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/secondary_color"
+                            android:fontFamily="@font/montserrat_medium"
+                            android:text="Set Time"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_12sdp"
+                            app:cornerRadius="@dimen/_8sdp"
+                            app:icon="@drawable/ic_clock"
+                            app:iconTint="@color/white" />
+
+                        <TextView
+                            android:id="@+id/input_reaminder_result"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_12sdp"
+                            android:fontFamily="@font/montserrat_semibold"
+                            android:text="08:00 AM"
+                            android:textColor="@color/text_dark"
+                            android:textSize="@dimen/_16sdp"
+                            android:visibility="gone" />
+
+                        <ImageButton
+                            android:id="@+id/edit_time"
+                            android:layout_width="@dimen/_36sdp"
+                            android:layout_height="@dimen/_36sdp"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:contentDescription="Edit time"
+                            android:src="@drawable/icon_edit"
+                            android:visibility="gone"
+                            app:tint="@color/accent_color" />
+                    </LinearLayout>
+
+                    <!-- Reminder Days -->
+                    <TextView
+                        android:id="@+id/et_txt_reaminder_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:text="Reminder Days"
+                        android:textColor="@color/text_dark"
+                        android:textSize="@dimen/_14sdp" />
+
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:scrollbars="none">
+
+                        <com.google.android.material.chip.ChipGroup
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:singleLine="true">
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/input_day_sunday"
+                                style="@style/Widget.MaterialComponents.Chip.Filter"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/montserrat"
+                                android:text="Sunday"
+                                android:textColor="@color/text_dark"
+                                app:chipBackgroundColor="@color/chip_background_color"
+                                app:chipStrokeColor="@color/primary_color"
+                                app:chipStrokeWidth="1dp" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/input_day_monday"
+                                style="@style/Widget.MaterialComponents.Chip.Filter"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/montserrat"
+                                android:text="Monday"
+                                android:textColor="@color/text_dark"
+                                app:chipBackgroundColor="@color/chip_background_color"
+                                app:chipStrokeColor="@color/primary_color"
+                                app:chipStrokeWidth="1dp" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/input_day_tuesday"
+                                style="@style/Widget.MaterialComponents.Chip.Filter"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/montserrat"
+                                android:text="Tuesday"
+                                android:textColor="@color/text_dark"
+                                app:chipBackgroundColor="@color/chip_background_color"
+                                app:chipStrokeColor="@color/primary_color"
+                                app:chipStrokeWidth="1dp" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/input_day_wednesday"
+                                style="@style/Widget.MaterialComponents.Chip.Filter"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/montserrat"
+                                android:text="Wednesday"
+                                android:textColor="@color/text_dark"
+                                app:chipBackgroundColor="@color/chip_background_color"
+                                app:chipStrokeColor="@color/primary_color"
+                                app:chipStrokeWidth="1dp" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/input_day_thursday"
+                                style="@style/Widget.MaterialComponents.Chip.Filter"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/montserrat"
+                                android:text="Thursday"
+                                android:textColor="@color/text_dark"
+                                app:chipBackgroundColor="@color/chip_background_color"
+                                app:chipStrokeColor="@color/primary_color"
+                                app:chipStrokeWidth="1dp" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/input_day_friday"
+                                style="@style/Widget.MaterialComponents.Chip.Filter"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/montserrat"
+                                android:text="Friday"
+                                android:textColor="@color/text_dark"
+                                app:chipBackgroundColor="@color/chip_background_color"
+                                app:chipStrokeColor="@color/primary_color"
+                                app:chipStrokeWidth="1dp" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/input_day_saturday"
+                                style="@style/Widget.MaterialComponents.Chip.Filter"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/montserrat"
+                                android:text="Saturday"
+                                android:textColor="@color/text_dark"
+                                app:chipBackgroundColor="@color/chip_background_color"
+                                app:chipStrokeColor="@color/primary_color"
+                                app:chipStrokeWidth="1dp" />
+                        </com.google.android.material.chip.ChipGroup>
+                    </HorizontalScrollView>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Save Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_add_medicine"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_56sdp"
+                android:layout_below="@id/card_reminder"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:backgroundTint="@color/primary_color"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="Add Medicine"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_16sdp"
+                app:cornerRadius="@dimen/_28sdp"
+                app:elevation="@dimen/_4sdp"
+                 />
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>

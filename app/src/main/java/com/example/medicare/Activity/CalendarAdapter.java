@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.medicare.Fragment.Intake_Fragment;
 import com.example.medicare.R;
 
 import java.text.SimpleDateFormat;
@@ -21,14 +22,36 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.Calend
 
     private List<Calendar> days;
     private Context context;
-    private Intake_Activity.OnDateSelectedListener listener;
+    private Intake_Fragment.OnDateSelectedListener listener;
     private int selectedPosition = 0; // Default first item selected
 
     // Constructor that takes the listener interface as a parameter
-    public CalendarAdapter(List<Calendar> days, Context context, Intake_Activity.OnDateSelectedListener listener) {
+    public CalendarAdapter(List<Calendar> days, Context context, Intake_Fragment.OnDateSelectedListener listener) {
         this.days = days;
         this.context = context;
         this.listener = listener;
+
+        // Find and set the position of the current day
+        selectedPosition = findCurrentDayPosition();
+    }
+
+    // Method to find the position of the current day
+    private int findCurrentDayPosition() {
+        Calendar today = Calendar.getInstance();
+        for (int i = 0; i < days.size(); i++) {
+            Calendar day = days.get(i);
+            if (isSameDay(today, day)) {
+                return i;
+            }
+        }
+        return 0; // Default to first day if no match
+    }
+
+    // Helper method to check if two calendars represent the same day
+    private boolean isSameDay(Calendar cal1, Calendar cal2) {
+        return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
+                cal1.get(Calendar.MONTH) == cal2.get(Calendar.MONTH) &&
+                cal1.get(Calendar.DAY_OF_MONTH) == cal2.get(Calendar.DAY_OF_MONTH);
     }
 
     @NonNull
@@ -51,12 +74,26 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.Calend
         holder.tvDayOfWeek.setText(dayName);
         holder.tvDate.setText(date);
 
-        // Highlight selected day
-        if (position == selectedPosition) {
+        // Check if this is the current day
+        Calendar today = Calendar.getInstance();
+        boolean isCurrentDay = isSameDay(today, day);
+
+        // Check if this is the selected day
+        boolean isSelectedDay = (position == selectedPosition);
+
+        // Set colors based on day type
+        if (isSelectedDay) {
+            // Selected day gets blue background
             holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.blue));
             holder.tvDayOfWeek.setTextColor(context.getResources().getColor(R.color.white));
             holder.tvDate.setTextColor(context.getResources().getColor(R.color.white));
+        } else if (isCurrentDay) {
+            // Current day gets yellow background
+            holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.yellow));
+            holder.tvDayOfWeek.setTextColor(context.getResources().getColor(R.color.black));
+            holder.tvDate.setTextColor(context.getResources().getColor(R.color.black));
         } else {
+            // Normal day gets white background
             holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.white));
             holder.tvDayOfWeek.setTextColor(context.getResources().getColor(R.color.black));
             holder.tvDate.setTextColor(context.getResources().getColor(R.color.black));
@@ -84,7 +121,8 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.Calend
     // Method to update calendar data
     public void updateDates(List<Calendar> newDays) {
         this.days = newDays;
-        selectedPosition = 0; // Reset selection to first item
+        // Reset selection to today's position in the new week
+        selectedPosition = findCurrentDayPosition();
         notifyDataSetChanged();
     }
 

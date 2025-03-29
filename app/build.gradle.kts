@@ -47,4 +47,6 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     implementation("com.intuit.sdp:sdp-android:1.0.6")
+    implementation("com.airbnb.android:lottie:6.1.0")
+
 }

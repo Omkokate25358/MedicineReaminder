@@ -12,5 +12,9 @@
         <attr name="progressColor" format="color"/>
         <attr name="textColor" format="color"/>
         <attr name="subtitleColor" format="color"/>
+
+
+            <attr name="progressThickness" format="dimension" />
+
     </declare-styleable>
 </resources>
