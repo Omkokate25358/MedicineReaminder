@@ -445,6 +445,14 @@
                                 app:chipStrokeWidth="1dp" />
                         </com.google.android.material.chip.ChipGroup>
                     </HorizontalScrollView>
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/alarm_toggle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Set Reminder Alarm"
+                        android:checked="true"
+                        android:padding="16dp"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -464,6 +472,9 @@
                 app:cornerRadius="@dimen/_28sdp"
                 app:elevation="@dimen/_4sdp"
                  />
+
+            <!-- Add this somewhere appropriate in your layout -->
+
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>

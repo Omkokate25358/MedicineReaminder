@@ -62,9 +62,7 @@ public class Add_Medicine_Activity extends AppCompatActivity {
     // for autocomplete the text
     private AutoCompleteTextView medicineTypeInput;
 
-
-
-
+    private androidx.appcompat.widget.SwitchCompat alarmToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,11 +107,7 @@ public class Add_Medicine_Activity extends AppCompatActivity {
 
         medicineTypeInput = findViewById(R.id.input_type);
 
-
-
-
-
-
+        alarmToggle = findViewById(R.id.alarm_toggle);
 
         // auto complete the words
         // Get medicine types from database or predefined list
@@ -221,6 +215,7 @@ public class Add_Medicine_Activity extends AppCompatActivity {
             medicine.put("Medicine quantity", quantity);
             medicine.put("Medicine type", type);
             medicine.put("Time", time);
+            medicine.put("isAlarm", alarmToggle.isChecked());
 
             // getting feild from firebase
             String userId = user.getUid();

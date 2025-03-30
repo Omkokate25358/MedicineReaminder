@@ -1,4 +1,7 @@
 package com.example.medicare.Activity;// MainActivity.java
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -45,6 +48,20 @@ public class Home_Activity extends AppCompatActivity {
         // Set default fragment on first launch
         if (savedInstanceState == null) {
             bottomNavigationView.setSelectedItemId(R.id.nav_data);
+        }
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(
+                    "MedicineReminder",
+                    "Medicine Reminder",
+                    NotificationManager.IMPORTANCE_HIGH
+            );
+
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            if (manager != null) {
+                manager.createNotificationChannel(channel);
+            }
         }
     }
 }

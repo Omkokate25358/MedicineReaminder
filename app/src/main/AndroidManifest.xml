@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-    <!-- Add these permissions -->
+    <!-- Required Permissions -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
-    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
-    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
 
@@ -20,15 +17,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MediCare"
         tools:targetApi="31">
-        <receiver android:name=".Receiver.AlarmReceiver" />
-
         <activity
-            android:name=".Activity.AlarmStopActivity"
+            android:name=".Activity.AlarmActivity"
             android:exported="false" />
-
-        <receiver android:name=".Receiver.AlarmReceiver" />
-
-        <receiver android:name=".Receiver.MedicineAlarmReceiver" />
+        <!-- Alarm Receiver -->
+        <receiver
+            android:name=".Activity.AlarmReceiver"
+            android:enabled="true"
+            android:exported="true" />
 
         <activity
             android:name=".Activity.Home_Activity"
@@ -47,11 +43,10 @@
         </activity>
         <activity
             android:name=".Activity.Add_Medicine_Activity"
-            android:exported="false" /> <!-- Update Receiver declarations -->
-        <receiver
-            android:name=".Activity.AlarmReceiver"
             android:exported="false" />
-
+        <activity
+            android:name=".Activity.Edit_Medicine_Activity"
+            android:exported="false" /> <!-- Preloaded Fonts -->
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

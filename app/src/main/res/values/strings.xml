@@ -7,6 +7,16 @@
     <string name="today_medications">Today\'s Medications</string>
     <string name="add_medication">Add Medication</string>
 
+    <string-array name="days_of_week">
+        <item>Sunday</item>
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+    </string-array>
+
 
     <string-array name="type_options">
         <item>Capsule</item>

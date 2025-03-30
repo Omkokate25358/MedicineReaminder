@@ -17,9 +17,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.medicare.Activity.Add_Medicine_Activity;
 import com.example.medicare.Activity.CalendarAdapter;
+import com.example.medicare.Activity.Edit_Medicine_Activity;
 import com.example.medicare.Activity.Medicine;
 import com.example.medicare.Activity.MedicineAdapter;
 import com.example.medicare.Activity.RoundedThickGaugeView;
+import com.example.medicare.AlarmHelper;
 import com.example.medicare.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -101,7 +103,7 @@ public class Intake_Fragment extends Fragment {
         medicineList = new ArrayList<>();
         adapter = new MedicineAdapter(getContext(), medicineList, medicine -> {
             // Handle Edit Button Click
-            Intent intent = new Intent(getActivity(), Add_Medicine_Activity.class);
+            Intent intent = new Intent(getActivity(), Edit_Medicine_Activity.class);
             intent.putExtra("medicineId", medicine.getId());
             startActivity(intent);
         });
@@ -205,18 +207,63 @@ public class Intake_Fragment extends Fragment {
                 .document(selectedDay)
                 .collection("Details");
 
+//        detailsRef.get().addOnCompleteListener(task -> {
+//            if (task.isSuccessful()) {
+//                Log.d("MedicareApp", "Query successful. Document count: " + task.getResult().size());
+//                medicineList.clear();
+//
+//                if (task.getResult().isEmpty()) {
+//                    Log.d("MedicareApp", "No medicines found for " + selectedDay);
+//                    Toast.makeText(getContext(), "No medicines found for " + selectedDay, Toast.LENGTH_SHORT).show();
+//                    adapter.notifyDataSetChanged();
+//                    updateGaugeView(0);
+//                    return;
+//                }
+//
+//                for (QueryDocumentSnapshot document : task.getResult()) {
+//                    Map<String, Object> medicineData = document.getData();
+//
+//                    // Extract data safely
+//                    String medicineName = medicineData.get("Medicine Name") != null ? medicineData.get("Medicine Name").toString() : "Unknown";
+//                    String medicineDose = medicineData.get("Medicine Dose") != null ? medicineData.get("Medicine Dose").toString() : "N/A";
+//                    String medicineQuantity = medicineData.get("Medicine quantity") != null ? medicineData.get("Medicine quantity").toString() : "0";
+//                    String medicineTime = medicineData.get("Time") != null ? medicineData.get("Time").toString() : "N/A";
+//
+//                    Medicine medicine = new Medicine(
+//                            document.getId(),  // Auto-generated document ID
+//                            medicineName,
+//                            medicineDose,
+//                            medicineQuantity,
+//                            medicineTime
+//                    );
+//
+//                    medicineList.add(medicine);
+//                }
+//
+//                Log.d("MedicareApp", "Loaded " + medicineList.size() + " medicines");
+//                adapter.notifyDataSetChanged();
+//
+//                // Update gauge view after data is loaded
+//                updateGaugeView(medicineList.size());
+//
+//            } else {
+//                Log.e("MedicareApp", "Error getting documents: ", task.getException());
+//                Toast.makeText(getContext(), "Error loading medicines: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+//                updateGaugeView(0);
+//            }
+//        });
         detailsRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                Log.d("MedicareApp", "Query successful. Document count: " + task.getResult().size());
                 medicineList.clear();
 
                 if (task.getResult().isEmpty()) {
-                    Log.d("MedicareApp", "No medicines found for " + selectedDay);
                     Toast.makeText(getContext(), "No medicines found for " + selectedDay, Toast.LENGTH_SHORT).show();
                     adapter.notifyDataSetChanged();
                     updateGaugeView(0);
                     return;
                 }
+
+                int requestCode = 0; // Unique request code for each alarm
 
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     Map<String, Object> medicineData = document.getData();
@@ -228,7 +275,7 @@ public class Intake_Fragment extends Fragment {
                     String medicineTime = medicineData.get("Time") != null ? medicineData.get("Time").toString() : "N/A";
 
                     Medicine medicine = new Medicine(
-                            document.getId(),  // Auto-generated document ID
+                            document.getId(),
                             medicineName,
                             medicineDose,
                             medicineQuantity,
@@ -236,20 +283,33 @@ public class Intake_Fragment extends Fragment {
                     );
 
                     medicineList.add(medicine);
+
+                    // Parse medicineTime (Assuming format "HH:mm")
+                    String[] timeParts = medicineTime.split(":");
+                    if (timeParts.length == 2) {
+                        try {
+                            int hour = Integer.parseInt(timeParts[0]);
+                            int minute = Integer.parseInt(timeParts[1]);
+
+                            // Schedule the alarm
+                            AlarmHelper.setAlarm(getContext(), hour, minute, medicineName, requestCode);
+                            requestCode++; // Ensure unique request codes for each medicine
+                        } catch (NumberFormatException e) {
+                            Log.e("Intake_Fragment", "Invalid time format: " + medicineTime, e);
+                        }
+                    }
                 }
 
-                Log.d("MedicareApp", "Loaded " + medicineList.size() + " medicines");
                 adapter.notifyDataSetChanged();
-
-                // Update gauge view after data is loaded
                 updateGaugeView(medicineList.size());
 
             } else {
-                Log.e("MedicareApp", "Error getting documents: ", task.getException());
                 Toast.makeText(getContext(), "Error loading medicines: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 updateGaugeView(0);
             }
         });
+
+
     }
 
 
