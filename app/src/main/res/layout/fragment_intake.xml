@@ -151,13 +151,15 @@
                     android:layout_gravity="center"
                     android:layout_margin="@dimen/_16sdp"
                     app:backgroundColor="#F5F5F5"
-                    app:currentValue="2"
+                    app:currentValue="0"
                     app:dayOfWeek="Monday"
                     app:label="intakes_today"
                     app:progressColor="@color/accent"
                     app:progressThickness="@dimen/_12sdp"
                     app:subtitleColor="@color/text_secondary"
-                    app:textColor="@color/text_primary" />
+                    app:textColor="@color/text_primary"
+
+                    />
             </androidx.cardview.widget.CardView>
 
             <!-- Medication List Header -->

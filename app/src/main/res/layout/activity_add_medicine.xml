@@ -327,6 +327,21 @@
                             android:textSize="@dimen/_16sdp"
                             android:visibility="gone" />
 
+<!--                        <com.google.android.material.button.MaterialButton-->
+<!--                            android:id="@+id/edit_time"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:backgroundTint="@color/secondary_color"-->
+<!--                            android:fontFamily="@font/montserrat_medium"-->
+<!--                            android:text="Edit"-->
+<!--                            android:textColor="@color/white"-->
+<!--                            android:textSize="@dimen/_12sdp"-->
+<!--                            app:cornerRadius="@dimen/_8sdp"-->
+<!--                            app:icon="@drawable/ic_clock"-->
+<!--                            app:iconTint="@color/white"-->
+<!--                            android:visibility="gone"/>-->
+
+
                         <ImageButton
                             android:id="@+id/edit_time"
                             android:layout_width="@dimen/_36sdp"

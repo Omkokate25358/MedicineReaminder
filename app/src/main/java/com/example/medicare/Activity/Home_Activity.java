@@ -29,8 +29,6 @@ public class Home_Activity extends AppCompatActivity {
 
             if (itemId == R.id.nav_data) {
                 selectedFragment = new Intake_Fragment();
-            } else if (itemId == R.id.nav_alarm) {
-                selectedFragment = new AlarmFragment();
             } else if (itemId == R.id.nav_profile) {
                 selectedFragment = new ProfileFragment();
             }

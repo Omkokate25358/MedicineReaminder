@@ -58,7 +58,6 @@ public class AlarmReceiver extends BroadcastReceiver {
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_ALARM)
                 .setFullScreenIntent(fullScreenPendingIntent, true) // Full-screen alarm
-                .addAction(R.drawable.ic_danger, "Stop", stopPendingIntent) // Stop button
                 .setAutoCancel(true);
 
         // Create notification channel for Android 8.0+

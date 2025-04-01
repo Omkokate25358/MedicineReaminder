@@ -14,27 +14,17 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.medicare.R;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity {
     TextView register;
-
     private EditText emailField, passwordField;
     private Button btnLogin;
-
     private ProgressBar progressBar;
     private FirebaseAuth auth;
-
-    // for one time login
     private SharedPreferences sharedPreferences;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,42 +32,33 @@ public class LoginActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
 
-        // all data members
-        register=findViewById(R.id.tvRegister);
-        auth = FirebaseAuth.getInstance();
-
+        // Initialize UI components
+        register = findViewById(R.id.tvRegister);
         emailField = findViewById(R.id.etEmail);
         passwordField = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
         progressBar = findViewById(R.id.progressBar);
 
+        auth = FirebaseAuth.getInstance();
         sharedPreferences = getSharedPreferences("UserSession", Context.MODE_PRIVATE);
 
-
-        // check for already login
+        // Check if the user is already logged in
         if (sharedPreferences.getBoolean("isLoggedIn", false)) {
             startActivity(new Intent(LoginActivity.this, Home_Activity.class));
             finish();
         }
 
-
-
-        // button functionality
-        register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i=new Intent(LoginActivity.this,Register_Activity.class);
-                startActivity(i);
-            }
+        // Register button functionality
+        register.setOnClickListener(v -> {
+            Intent intent = new Intent(LoginActivity.this, Register_Activity.class);
+            startActivity(intent);
         });
 
+        // Login button functionality
         btnLogin.setOnClickListener(v -> loginUser());
-
-
     }
 
     private void loginUser() {
-
         String email = emailField.getText().toString().trim();
         String password = passwordField.getText().toString().trim();
 
@@ -85,13 +66,15 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(this, "Enter email and password", Toast.LENGTH_SHORT).show();
             return;
         }
+
         progressBar.setVisibility(View.VISIBLE);
 
         auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     progressBar.setVisibility(View.GONE);
-                    saveLoginSession();
+
                     if (task.isSuccessful()) {
+                        saveLoginSession();  // Save session only on successful login
                         Toast.makeText(this, "Login Successful!", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(LoginActivity.this, Home_Activity.class));
                         finish();

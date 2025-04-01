@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.medicare.AlarmHelper;
 import com.example.medicare.R;
 
 public class AlarmActivity extends Activity {
@@ -18,6 +19,9 @@ public class AlarmActivity extends Activity {
         Button stopButton = findViewById(R.id.stopAlarmButton);
         stopButton.setOnClickListener(v -> {
             AlarmReceiver.stopAlarm();
+
+            AlarmHelper.stopAlarm(this, "medicineName");
+
             finish(); // Close activity
             // Send broadcast to update gauge view
             Intent stopGaugeIntent = new Intent("UPDATE_GAUGE");

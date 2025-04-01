@@ -1,7 +1,12 @@
 package com.example.medicare.Activity;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -20,6 +25,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.example.medicare.AlarmHelper;
 import com.example.medicare.R;
 
 // firebase
@@ -30,9 +37,13 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class Add_Medicine_Activity extends AppCompatActivity {
@@ -42,7 +53,8 @@ public class Add_Medicine_Activity extends AppCompatActivity {
     private CheckBox chkSunday, chkMonday, chkTuesday, chkWednesday, chkThursday, chkFriday, chkSaturday;
 
 
-    private Button timePickerButton, editTimeButton;
+    private Button timePickerButton;
+    ImageButton editTimeButton;
 
     private Button btn_add;
 
@@ -88,7 +100,7 @@ public class Add_Medicine_Activity extends AppCompatActivity {
 
         timePickerButton = findViewById(R.id.set_time);
         selectedTimeText = findViewById(R.id.input_reaminder_result);
-//        editTimeButton = findViewById(R.id.edit_time);
+        editTimeButton = findViewById(R.id.edit_time);
 
         //data member week days
         chkSunday = findViewById(R.id.input_day_sunday);
@@ -133,13 +145,13 @@ public class Add_Medicine_Activity extends AppCompatActivity {
             }
         });
 
-        // Edit time when clicking the edit button
-//        editTimeButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                showTimePicker();
-//            }
-//        });
+         //Edit time when clicking the edit button
+        editTimeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTimePicker();
+            }
+        });
 
         // add button
         btn_add.setOnClickListener(new View.OnClickListener() {
@@ -178,7 +190,7 @@ public class Add_Medicine_Activity extends AppCompatActivity {
 
                         // Hide clock button and show edit button
                         timePickerButton.setVisibility(View.GONE);
-//                        editTimeButton.setVisibility(View.VISIBLE);
+                        editTimeButton.setVisibility(View.VISIBLE);
                     }
                 }, hour, minute, false); // 'false' for 12-hour format
 
@@ -204,6 +216,7 @@ public class Add_Medicine_Activity extends AppCompatActivity {
         String quantity=mquantity.getText().toString().trim();
         String type=medicineTypeInput.getText().toString();
         String time=formattedTime.trim();
+
 
         if (user != null) {
 
@@ -235,13 +248,21 @@ public class Add_Medicine_Activity extends AppCompatActivity {
     }
 
     private void addDataToFirebase(String weekDay,Map<String,Object> medicineData,String userId){
+
+
+
+
+
+
         db.collection("Users").document(userId) // Replace 'userId' with the actual user ID
                 .collection("Medicines")
                 .document(weekDay)  // Adding data specifically under "Monday"
                 .collection("Details")  // Optional, if you want detailed entries
                 .add(medicineData)
                 .addOnSuccessListener(documentReference -> {
-                    Toast.makeText(this, "Medicine added for Monday!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Medicine Added Successfully", Toast.LENGTH_SHORT).show();
+                    setMedicineAlarm(String.valueOf(mediName),formattedTime);
+
                 })
                 .addOnFailureListener(e -> {
                     Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -255,6 +276,57 @@ public class Add_Medicine_Activity extends AppCompatActivity {
                 "Inhaler", "Cream", "Ointment", "Spray", "Patch",
                 "Suppository", "Suspension", "Solution", "Powder", "Lozenge"
         };
+    }
+
+
+//    private void setMedicineAlarm(String medicineName, String medicineTime) {
+//        String[] timeParts = medicineTime.split(":");
+//        if (timeParts.length == 2) {
+//            try {
+//                int hour = Integer.parseInt(timeParts[0]);
+//                int minute = Integer.parseInt(timeParts[1]);
+//
+//                int requestCode = (int) System.currentTimeMillis(); // Unique ID for alarm
+//                AlarmHelper.setAlarm(this, hour, minute, medicineName, requestCode);
+//
+//                Toast.makeText(this, "Alarm set for " + medicineTime, Toast.LENGTH_SHORT).show();
+//            } catch (NumberFormatException e) {
+//                Log.e("Add_Medicine12345", "Invalid time format: " + medicineTime, e);
+//            }
+//        } else {
+//            Toast.makeText(this, "Invalid time format!", Toast.LENGTH_SHORT).show();
+//        }
+//    }
+
+    private void setMedicineAlarm(String medicineName, String medicineTime) {
+        try {
+            // Convert the 12-hour format time (medicineTime) to 24-hour format
+            SimpleDateFormat sdf12 = new SimpleDateFormat("hh:mm a", Locale.ENGLISH); // 12-hour format
+            SimpleDateFormat sdf24 = new SimpleDateFormat("HH:mm", Locale.ENGLISH); // 24-hour format
+
+            // Parse the 12-hour format time
+            Date date = sdf12.parse(medicineTime);
+
+            // Convert to 24-hour format
+            String time24Hour = sdf24.format(date);
+
+            // Now split the 24-hour format time
+            String[] timeParts = time24Hour.split(":");
+            if (timeParts.length == 2) {
+                int hour = Integer.parseInt(timeParts[0]);
+                int minute = Integer.parseInt(timeParts[1]);
+
+                int requestCode = (int) System.currentTimeMillis(); // Unique ID for alarm
+                AlarmHelper.setAlarm(this, hour, minute, medicineName, requestCode);
+
+                Toast.makeText(this, "Alarm set for " + time24Hour, Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Invalid time format!", Toast.LENGTH_SHORT).show();
+            }
+        } catch (ParseException e) {
+            Log.e("Add_Medicine", "Error converting time format", e);
+            Toast.makeText(this, "Error converting time format!", Toast.LENGTH_SHORT).show();
+        }
     }
 
 }

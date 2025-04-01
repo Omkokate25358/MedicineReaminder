@@ -59,7 +59,7 @@ public class Edit_Medicine_Activity extends AppCompatActivity {
         deleteButton = findViewById(R.id.delete_button);
 
         // Set 24-hour view for the TimePicker
-        timePicker.setIs24HourView(true);
+        timePicker.setIs24HourView(false);
 
         // Get medicineId from intent
         medicineId = getIntent().getStringExtra("medicineId");

@@ -1,6 +1,9 @@
 package com.example.medicare.Fragment;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.medicare.Activity.LoginActivity;
 import com.example.medicare.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -63,6 +67,28 @@ public class ProfileFragment extends Fragment {
         userId = FirebaseAuth.getInstance().getCurrentUser() != null ?
                 FirebaseAuth.getInstance().getCurrentUser().getUid() : "EluqHjWXIVf9Z7NEhSlhftKx1yy1";
         userRef = db.collection("Users").document(userId);
+
+
+        btnLogout= rootView.findViewById(R.id.btnLogout);
+
+        btnLogout.setOnClickListener(v -> {
+            // Clear login session
+            SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("UserSession", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("isLoggedIn", false);
+            editor.apply();
+
+            // Sign out from Firebase
+            FirebaseAuth.getInstance().signOut();
+
+            // Redirect to Login Activity
+            Intent intent = new Intent(getContext(), LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Clears activity stack
+            startActivity(intent);
+        });
+
+
+
 
         initViews();
         setupListeners();
@@ -171,13 +197,7 @@ public class ProfileFragment extends Fragment {
         });
 
         // Logout button click
-        btnLogout.setOnClickListener(v -> {
-            FirebaseAuth.getInstance().signOut();
-            if (getActivity() != null) {
-                getActivity().finish();
-                // You may want to start login activity here
-            }
-        });
+
     }
 
     private void setEditMode(boolean editing) {

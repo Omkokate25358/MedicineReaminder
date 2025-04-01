@@ -6,10 +6,7 @@
         android:icon="@drawable/ic_clock"
         android:title="Data" />
 
-    <item
-        android:id="@+id/nav_alarm"
-        android:icon="@drawable/ic_person"
-        android:title="Alarm" />
+
 
     <item
         android:id="@+id/nav_profile"
