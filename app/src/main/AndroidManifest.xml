@@ -28,6 +28,14 @@
             android:enabled="true"
             android:exported="true" />
 
+        <receiver
+            android:name=".Activity.AlarmStopReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="MEDICINE_TAKEN" />
+            </intent-filter>
+        </receiver>
+
         <activity
             android:name=".Activity.Home_Activity"
             android:exported="false" />

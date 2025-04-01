@@ -300,31 +300,67 @@ public class Intake_Fragment extends Fragment {
 //        updateGaugeView(medicineList.size()); // Update the gauge based on the remaining medicines
 //    }
 
-    private void updateGaugeViewAfterAlarm(String medicineName) {
-        Log.d("Intake_Fragment123", "Updating gauge after alarm for: " + medicineName);
+//    private void updateGaugeViewAfterAlarm(String medicineName) {
+//        Log.d("Intake_Fragment123", "Updating gauge after alarm for: " + medicineName);
+//
+//        // Find and remove the medicine that was just taken
+//        for (int i = 0; i < medicineList.size(); i++) {
+//            Medicine med = medicineList.get(i);
+//            if (med.getName().equals(medicineName)) {
+//                medicineList.remove(i);
+//                // Notify adapter of change
+//                adapter.notifyDataSetChanged();
+//                // Update gauge - increase taken count by 1
+//                if (gaugeView != null) {
+//                    int taken = 1;  // Just took one medicine
+//                    int total = medicineList.size() + taken;  // Total is remaining + taken
+//                    gaugeView.updateGauge(taken, total, selectedDay, "Today's Medicine");
+//                }
+//                break;
+//            }
+//        }
+//    }
 
-        // Find and remove the medicine that was just taken
+    private void updateGaugeViewAfterAlarm(String medicineName) {
+        Log.d("Intake_Fragment", "Updating gauge after alarm for: " + medicineName);
+
+        // Loop through the medicineList and find the medicine that was taken
+        boolean medicineFound = false;
         for (int i = 0; i < medicineList.size(); i++) {
             Medicine med = medicineList.get(i);
             if (med.getName().equals(medicineName)) {
                 medicineList.remove(i);
-                // Notify adapter of change
+                medicineFound = true;
                 adapter.notifyDataSetChanged();
-                // Update gauge - increase taken count by 1
-                if (gaugeView != null) {
-                    int taken = 1;  // Just took one medicine
-                    int total = medicineList.size() + taken;  // Total is remaining + taken
-                    gaugeView.updateGauge(taken, total, selectedDay, "Today's Medicine");
-                }
+                Log.d("Intake_Fragment", "Medicine removed from list: " + medicineName);
                 break;
             }
         }
+
+        if (medicineFound) {
+            // Update the gauge view
+            int taken = 1;
+            int total = medicineList.size() + taken;
+            Log.d("Intake_Fragment", "Gauge values - Taken: " + taken + ", Total: " + total);
+
+            if (gaugeView != null) {
+                gaugeView.updateGauge(taken, total, selectedDay, "Today's Medicine");
+                gaugeView.invalidate(); // Force redraw
+                Log.d("Intake_Fragment", "Gauge view updated");
+            } else {
+                Log.e("Intake_Fragment", "Gauge view is null!");
+            }
+        } else {
+            Log.w("Intake_Fragment", "Medicine not found in list: " + medicineName);
+        }
     }
+
     @Override
     public void onStart() {
         super.onStart();
         IntentFilter filter = new IntentFilter("UPDATE_GAUGE_VIEW");
         requireContext().registerReceiver(gaugeUpdateReceiver, filter);
+        Log.d("Intake_Fragment", "Registered receiver for UPDATE_GAUGE_VIEW");
     }
 
     @Override
